@@ -1,15 +1,6 @@
 module.exports = {
-  // 定制格式化要求
-  overrides: [
-    {
-      files: '.prettierrc',
-      options: {
-        parser: 'json'
-      }
-    }
-  ],
   printWidth: 150, // 指定每行代码的最大长度，超过该长度将自动换行。
-  tabWidth: 4, // 指定一个制表符等于的空格数。
+  tabWidth: 2, // 指定一个制表符等于的空格数。
   semi: true, // 行尾需要有分号
   singleQuote: true, // 使用单引号而不是双引号
   useTabs: false, // 指定是否使用制表符进行缩进，如果设置为true，则使用制表符进行缩进，如果设置为false，则使用空格进行缩进。

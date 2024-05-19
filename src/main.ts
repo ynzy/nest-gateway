@@ -3,8 +3,8 @@ import { AppModule } from './app.module';
 
 import { networkInterfaces } from 'os';
 
- // 获取本机的IP地址
- const getLocalIP = () => {
+// 获取本机的IP地址
+const getLocalIP = () => {
   const interfaces = networkInterfaces();
   for (const name of Object.keys(interfaces)) {
     for (const inter of interfaces[name]) {
