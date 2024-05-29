@@ -64,6 +64,7 @@ export class UserController {
   }
   @Get('getTestName')
   getTestName() {
+    console.log('测试热重载');
     return this.configService.get('TEST_VALUE').name;
   }
 }

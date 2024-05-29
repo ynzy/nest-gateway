@@ -8,6 +8,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { VersionValue } from '@nestjs/common/interfaces';
 import { AllExceptionsFilter } from './common/exceptions/base.exception.filter';
 import { HttpExceptionFilter } from './common/exceptions/http.exception.filter';
+declare const module: any;
 
 const port = 3000;
 
@@ -33,5 +34,10 @@ async function bootstrap() {
     const supportVersions = supportedApiVersions.slice(1, supportedApiVersions.length).map((version: string) => `/v${version}`);
     console.log(`Supported API versions: ${supportVersions.join(', ')}`);
   });
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();
