@@ -8,6 +8,8 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { VersionValue } from '@nestjs/common/interfaces';
 import { AllExceptionsFilter } from './common/exceptions/base.exception.filter';
 import { HttpExceptionFilter } from './common/exceptions/http.exception.filter';
+import { generateDocument, swaggerUrl } from './doc';
+
 declare const module: any;
 
 const port = 3000;
@@ -29,15 +31,18 @@ async function bootstrap() {
   // 异常过滤器
   app.useGlobalFilters(new AllExceptionsFilter(), new HttpExceptionFilter());
 
-  await app.listen(port, '0.0.0.0', () => {
-    console.log(`Application is running on: http://${getLocalIP()}:${port}/api/v1`);
-    const supportVersions = supportedApiVersions.slice(1, supportedApiVersions.length).map((version: string) => `/v${version}`);
-    console.log(`Supported API versions: ${supportVersions.join(', ')}`);
-  });
+  generateDocument(app);
 
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
+
+  await app.listen(port, '0.0.0.0', () => {
+    console.log(`Application is running on: http://${getLocalIP()}:${port}/api/v1`);
+    const supportVersions = supportedApiVersions.slice(1, supportedApiVersions.length).map((version: string) => `/v${version}`);
+    console.log(`Supported API versions: ${supportVersions.join(', ')}`);
+    console.log(`swagger running on: http://${getLocalIP()}:${port}${swaggerUrl}`);
+  });
 }
 bootstrap();
