@@ -23,7 +23,7 @@ export const getEnv = () => {
 };
 
 // 读取项目配置
-export const getConfig = () => {
+export const getConfig = (): any => {
   const environment = getEnv();
 
   const yamlPath = join(process.cwd(), `./.config/.${environment}.yaml`);
